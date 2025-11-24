@@ -8,10 +8,12 @@ function App() {
     <Router>
       <div className="min-h-screen bg-background">
         <Header />
-        <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/historical" element={<HistoricalData />} />
-        </Routes>
+        <main className="pt-20 sm:pt-24">
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/historical" element={<HistoricalData />} />
+          </Routes>
+        </main>
       </div>
     </Router>
   );

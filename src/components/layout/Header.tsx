@@ -1,5 +1,6 @@
 import { Sprout, Cloud, Satellite, Leaf, Bell, Calendar as CalendarIcon, MapPin, History } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import LanguageSelector from '@/components/LanguageSelector';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { t } from '@/lib/translations';
@@ -15,6 +16,26 @@ interface NavItemConfig {
 export default function Header() {
   const { language } = useLanguage();
   const location = useLocation();
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      // Show navbar when scrolling up, hide when scrolling down
+      if (currentScrollY < lastScrollY) {
+        setIsVisible(true);
+      } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setIsVisible(false);
+      }
+      
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
   
   const navItems: NavItemConfig[] = [
     { icon: Satellite, label: t(language, 'header.satellite'), to: '/#satellite', color: 'text-blue-600', bgColor: 'bg-blue-100 dark:bg-blue-900' },
@@ -27,7 +48,9 @@ export default function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className={`fixed top-0 left-0 right-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 transition-transform duration-300 ease-in-out ${
+      isVisible ? 'translate-y-0' : '-translate-y-full'
+    }`}>
       <div className="w-full px-3 py-3 sm:px-4 sm:py-4">
         {/* Top Row: Logo and Language */}
         <div className="flex items-center justify-between mb-3 sm:mb-4">
