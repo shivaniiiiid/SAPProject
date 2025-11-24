@@ -74,12 +74,15 @@ The application is configured for Replit autoscale deployment:
 - Run command: `bun run preview`
 - Deployment target: Autoscale (stateless)
 
-## Recent Changes
-- Configured Vite for Replit environment (port 5000, host 0.0.0.0)
-- Added HMR configuration for proper hot reload in iframe
-- Configured file watchers to ignore cache directories
-- Added deployment configuration for production builds
-- Installed missing dependency: framer-motion
+## Recent Changes (November 24, 2025)
+- ✅ Configured Vite for Replit environment (port 5000, host 0.0.0.0)
+- ✅ Added HMR configuration for proper hot reload in iframe (clientPort 443)
+- ✅ Configured `allowedHosts` for Replit's dynamic preview URLs (.replit.dev, .pike.replit.dev)
+- ✅ Configured file watchers to ignore cache directories
+- ✅ Fixed duplicate provider wrapping (moved providers to main.tsx only)
+- ✅ Added deployment configuration for production builds
+- ✅ Installed missing dependency: framer-motion
+- ✅ Created API_KEYS_SETUP.md documentation for required credentials
 
 ## Notes
 - The app uses Bun as the package manager (faster than npm)
