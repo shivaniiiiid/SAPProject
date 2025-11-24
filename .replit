@@ -1,6 +1,7 @@
 modules = ["nodejs-20", "cpp-clang14", "web", "bun"]
 [agent]
 expertMode = true
+integrations = ["javascript_openai:1.0.0"]
 
 [nix]
 channel = "stable-25_05"
@@ -36,6 +37,10 @@ externalPort = 80
 [[ports]]
 localPort = 39031
 externalPort = 3000
+
+[[ports]]
+localPort = 41783
+externalPort = 3001
 
 [deployment]
 deploymentTarget = "autoscale"
