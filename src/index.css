@@ -62,18 +62,38 @@
 
 @layer components {
   .stat-card {
-    @apply bg-card border border-border rounded-lg p-6 shadow-sm hover:shadow-md transition-all duration-300;
+    @apply bg-card border-2 border-border rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-2xl transition-all duration-300;
   }
   
   .gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-amber-600 dark:from-green-400 dark:to-amber-400;
   }
   
   .section-title {
-    @apply text-2xl font-bold text-foreground mb-4;
+    @apply text-3xl sm:text-4xl font-black text-foreground mb-6;
   }
   
   .data-card {
-    @apply bg-card border border-border rounded-xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 hover:border-primary/30;
+    @apply bg-card border-2 border-border rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:border-green-500/50;
+  }
+
+  /* Farmer-friendly button styles */
+  button, .button {
+    @apply text-lg sm:text-xl font-bold px-6 sm:px-8 py-4 sm:py-5 rounded-xl transition-all duration-200 transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl;
+  }
+
+  /* Improved form inputs for outdoor visibility */
+  input, select, textarea {
+    @apply text-lg sm:text-xl p-4 rounded-xl border-2 border-border focus:border-green-500 focus:ring-4 focus:ring-green-200 dark:focus:ring-green-800 transition-all;
+  }
+
+  /* High contrast text for visibility */
+  .highlight-text {
+    @apply text-xl sm:text-2xl font-black text-foreground;
+  }
+
+  /* Farmer-friendly card styling */
+  .farm-card {
+    @apply bg-white dark:bg-slate-800 border-2 border-green-400 rounded-2xl p-6 sm:p-8 shadow-lg;
   }
 }

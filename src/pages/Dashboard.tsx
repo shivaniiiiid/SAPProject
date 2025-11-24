@@ -23,29 +23,29 @@ export default function Dashboard() {
   const { data: sensorData } = useRealtimeSensors();
 
   return (
-    <div className="min-h-screen bg-earth-gradient">
-      <div className="container mx-auto px-4 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-green-50 to-blue-50 dark:from-amber-900 dark:via-green-900 dark:to-blue-900">
+      <div className="w-full px-4 sm:px-6 py-6 sm:py-8">
         {/* Hero Section */}
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-8"
+          className="mb-6 sm:mb-8"
           id="home"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
-            {t(language, 'dashboard.welcome')} <span className="gradient-text">{t(language, 'header.title')}</span>
+          <h2 className="text-4xl sm:text-5xl font-black text-foreground mb-3">
+            🌾 {t(language, 'dashboard.welcome')}
           </h2>
-          <p className="text-muted-foreground">
+          <p className="text-lg sm:text-xl text-foreground/70">
             {t(language, 'dashboard.description')}
           </p>
         </motion.div>
 
-        {/* Stats Grid */}
+        {/* Stats Grid - Large & Prominent */}
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8"
+          className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-8"
         >
           <StatCard
             title={t(language, 'dashboard.cropHealth')}
@@ -86,43 +86,74 @@ export default function Dashboard() {
 
         {/* Main Content Grid */}
         <div className="space-y-8">
+          {/* ALERTS FIRST - Most Important for Farmers */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.3 }}
+            id="alerts"
+            className="order-first"
+          >
+            <div className="bg-red-50 dark:bg-red-950 border-4 border-red-500 rounded-3xl p-6 sm:p-8">
+              <h3 className="text-2xl sm:text-3xl font-black text-red-700 dark:text-red-200 mb-4">⚠️ Important Alerts</h3>
+              <AlertsPanel />
+            </div>
+          </motion.div>
+
+          {/* Weather & Recommendations */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+            className="grid grid-cols-1 lg:grid-cols-2 gap-6"
+            id="weather"
+          >
+            <div className="farm-card">
+              <h3 className="text-2xl font-black mb-4">🌤️ Weather Now</h3>
+              <WeatherMonitoring />
+            </div>
+            <div className="farm-card">
+              <h3 className="text-2xl font-black mb-4">💧 Irrigation Needs</h3>
+              <IrrigationRecommendations />
+            </div>
+          </motion.div>
+
           {/* Live Sensor Dashboard */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
+            transition={{ delay: 0.5 }}
             id="analysis"
           >
-            <LiveSensorDashboard />
+            <div className="farm-card">
+              <h3 className="text-2xl font-black mb-4">📊 Live Sensors</h3>
+              <LiveSensorDashboard />
+            </div>
           </motion.div>
 
           {/* Live Charts */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
+            transition={{ delay: 0.6 }}
           >
-            <LiveCharts />
-          </motion.div>
-
-          {/* Alerts Panel */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.5 }}
-            id="alerts"
-          >
-            <AlertsPanel />
+            <div className="farm-card">
+              <h3 className="text-2xl font-black mb-4">📈 Data Trends</h3>
+              <LiveCharts />
+            </div>
           </motion.div>
 
           {/* Farm Map */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
+            transition={{ delay: 0.7 }}
             id="map"
           >
-            <FarmMap />
+            <div className="farm-card">
+              <h3 className="text-2xl font-black mb-4">🗺️ Your Farm</h3>
+              <FarmMap />
+            </div>
           </motion.div>
 
           {/* Satellite Monitoring */}
@@ -130,58 +161,61 @@ export default function Dashboard() {
             id="satellite"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7 }}
-          >
-            <SatelliteMonitoring />
-          </motion.div>
-
-          {/* Weather & Irrigation Row */}
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
             transition={{ delay: 0.8 }}
-            className="grid grid-cols-1 lg:grid-cols-2 gap-8"
-            id="weather"
           >
-            <WeatherMonitoring />
-            <IrrigationRecommendations />
-          </motion.div>
-
-          {/* Smart Agriculture AI System */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.9 }}
-          >
-            <SmartAgriAI />
+            <div className="farm-card">
+              <h3 className="text-2xl font-black mb-4">🛰️ Crop Health (Satellite)</h3>
+              <SatelliteMonitoring />
+            </div>
           </motion.div>
 
           {/* Crop Calendar */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.0 }}
+            transition={{ delay: 0.9 }}
             id="calendar"
           >
-            <CropCalendar />
+            <div className="farm-card">
+              <h3 className="text-2xl font-black mb-4">📅 Seasonal Calendar</h3>
+              <CropCalendar />
+            </div>
           </motion.div>
 
           {/* Crop Suggestion Tool */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.1 }}
+            transition={{ delay: 1.0 }}
           >
-            <CropSuggestionTool />
+            <div className="farm-card">
+              <h3 className="text-2xl font-black mb-4">🌱 Crop Suggestions</h3>
+              <CropSuggestionTool />
+            </div>
           </motion.div>
 
           {/* AI Recommendations */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.1 }}
+          >
+            <div className="farm-card">
+              <h3 className="text-2xl font-black mb-4">🤖 AI Advice</h3>
+              <AIRecommendations />
+            </div>
+          </motion.div>
+
+          {/* Smart Agriculture AI System */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.2 }}
           >
-            <AIRecommendations />
+            <div className="farm-card">
+              <h3 className="text-2xl font-black mb-4">🎯 Smart AgriAI</h3>
+              <SmartAgriAI />
+            </div>
           </motion.div>
 
           {/* Crop Health Analyzer */}
@@ -190,7 +224,10 @@ export default function Dashboard() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.3 }}
           >
-            <CropHealthAnalyzer />
+            <div className="farm-card">
+              <h3 className="text-2xl font-black mb-4">🔍 Crop Health Analysis</h3>
+              <CropHealthAnalyzer />
+            </div>
           </motion.div>
         </div>
 
