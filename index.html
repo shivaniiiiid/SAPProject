@@ -40,9 +40,32 @@
     </script>
     
     <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%2322c55e' width='180' height='180'/><text x='90' y='90' font-size='90' font-weight='bold' fill='white' text-anchor='middle' dominant-baseline='central'>🌾</text></svg>" />
+    <meta name="theme-color" content="#22c55e" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="green" />
+    <meta name="apple-mobile-web-app-title" content="AgriSmart" />
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      // Register Service Worker for PWA functionality
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/service-worker.js', { scope: '/' })
+          .then(registration => {
+            console.log('✅ Service Worker registered:', registration);
+            // Check for updates periodically
+            setInterval(() => {
+              registration.update();
+            }, 60000); // Check every minute
+          })
+          .catch(error => {
+            console.warn('⚠️ Service Worker registration failed:', error);
+          });
+      }
+    </script>
   </body>
 </html>
