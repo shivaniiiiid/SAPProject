@@ -17,12 +17,12 @@ export default function Header() {
   const location = useLocation();
   
   const navItems: NavItemConfig[] = [
-    { icon: Satellite, label: t(language, 'header.satellite'), to: '/', color: 'text-blue-600', bgColor: 'bg-blue-100 dark:bg-blue-900' },
-    { icon: Cloud, label: t(language, 'header.weather'), to: '/', color: 'text-cyan-600', bgColor: 'bg-cyan-100 dark:bg-cyan-900' },
-    { icon: Leaf, label: t(language, 'header.analysis'), to: '/', color: 'text-green-600', bgColor: 'bg-green-100 dark:bg-green-900' },
-    { icon: MapPin, label: t(language, 'header.map'), to: '/', color: 'text-purple-600', bgColor: 'bg-purple-100 dark:bg-purple-900' },
-    { icon: Bell, label: t(language, 'header.alerts'), to: '/', color: 'text-red-600', bgColor: 'bg-red-100 dark:bg-red-900' },
-    { icon: CalendarIcon, label: t(language, 'header.calendar'), to: '/', color: 'text-orange-600', bgColor: 'bg-orange-100 dark:bg-orange-900' },
+    { icon: Satellite, label: t(language, 'header.satellite'), to: '/#satellite', color: 'text-blue-600', bgColor: 'bg-blue-100 dark:bg-blue-900' },
+    { icon: Cloud, label: t(language, 'header.weather'), to: '/#weather', color: 'text-cyan-600', bgColor: 'bg-cyan-100 dark:bg-cyan-900' },
+    { icon: Leaf, label: t(language, 'header.analysis'), to: '/#analysis', color: 'text-green-600', bgColor: 'bg-green-100 dark:bg-green-900' },
+    { icon: MapPin, label: t(language, 'header.map'), to: '/#map', color: 'text-purple-600', bgColor: 'bg-purple-100 dark:bg-purple-900' },
+    { icon: Bell, label: t(language, 'header.alerts'), to: '/#alerts', color: 'text-red-600', bgColor: 'bg-red-100 dark:bg-red-900' },
+    { icon: CalendarIcon, label: t(language, 'header.calendar'), to: '/#calendar', color: 'text-orange-600', bgColor: 'bg-orange-100 dark:bg-orange-900' },
     { icon: History, label: 'Historical', to: '/historical', color: 'text-indigo-600', bgColor: 'bg-indigo-100 dark:bg-indigo-900' },
   ];
 
@@ -71,9 +71,21 @@ function NavItem({
   bgColor,
   active 
 }: NavItemConfig & { active: boolean }) {
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (to.startsWith('/#')) {
+      e.preventDefault();
+      const sectionId = to.substring(2);
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  };
+
   return (
     <Link 
       to={to}
+      onClick={handleClick}
       title={label}
       className={`flex flex-col items-center justify-center gap-1 p-2 sm:p-3 rounded-lg transition-all duration-200 transform hover:scale-105 active:scale-95 ${
         active 

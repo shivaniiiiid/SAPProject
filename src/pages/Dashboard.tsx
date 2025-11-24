@@ -30,6 +30,7 @@ export default function Dashboard() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           className="mb-8"
+          id="home"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
             {t(language, 'dashboard.welcome')} <span className="gradient-text">{t(language, 'header.title')}</span>
@@ -90,6 +91,7 @@ export default function Dashboard() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
+            id="analysis"
           >
             <LiveSensorDashboard />
           </motion.div>
@@ -108,6 +110,7 @@ export default function Dashboard() {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.5 }}
+            id="alerts"
           >
             <AlertsPanel />
           </motion.div>
@@ -117,12 +120,14 @@ export default function Dashboard() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
+            id="map"
           >
             <FarmMap />
           </motion.div>
 
           {/* Satellite Monitoring */}
           <motion.div
+            id="satellite"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7 }}
@@ -136,6 +141,7 @@ export default function Dashboard() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8 }}
             className="grid grid-cols-1 lg:grid-cols-2 gap-8"
+            id="weather"
           >
             <WeatherMonitoring />
             <IrrigationRecommendations />
@@ -155,6 +161,7 @@ export default function Dashboard() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.0 }}
+            id="calendar"
           >
             <CropCalendar />
           </motion.div>
