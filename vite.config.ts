@@ -5,17 +5,18 @@ import path from "path";
 // https://vitejs.dev/config/
 export default defineConfig({
   server: {
-    host: "0.0.0.0",
+    host: true,
     port: 5000,
     strictPort: true,
     allowedHosts: [
       '.replit.dev',
       '.pike.replit.dev',
     ],
-    hmr: {
+    hmr: process.env.REPLIT_DEV_DOMAIN ? {
+      protocol: 'wss',
       clientPort: 443,
-      host: "0.0.0.0",
-    },
+      host: process.env.REPLIT_DEV_DOMAIN,
+    } : undefined,
     watch: {
       ignored: ['**/.cache/**', '**/node_modules/**'],
     },

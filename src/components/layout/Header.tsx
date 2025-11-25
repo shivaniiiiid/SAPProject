@@ -1,5 +1,5 @@
 import { Sprout, Cloud, Satellite, Leaf, Bell, Calendar as CalendarIcon, MapPin, History } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import LanguageSelector from '@/components/LanguageSelector';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -95,19 +95,22 @@ function NavItem({
   active 
 }: NavItemConfig & { active: boolean }) {
   const location = useLocation();
+  const navigate = useNavigate();
   
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (to.startsWith('/#')) {
       e.preventDefault();
       const sectionId = to.substring(2);
+      const hash = to.substring(1);
       
-      // If not on dashboard, navigate there first
+      // Navigate to dashboard with hash preserved
       if (location.pathname !== '/') {
-        window.location.href = `/#${sectionId}`;
+        navigate('/' + hash);
         return;
       }
       
-      // Scroll to section
+      // Already on dashboard - update hash and scroll directly
+      window.location.hash = hash;
       const element = document.getElementById(sectionId);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth', block: 'start' });

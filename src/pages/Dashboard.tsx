@@ -17,10 +17,27 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { t } from '@/lib/translations';
 import { motion } from 'framer-motion';
 import { useRealtimeSensors } from '@/hooks/useRealtimeSensors';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 export default function Dashboard() {
   const { language } = useLanguage();
   const { data: sensorData } = useRealtimeSensors();
+  const location = useLocation();
+
+  // Handle hash-based scrolling when navigating from other pages
+  useEffect(() => {
+    if (location.hash) {
+      const sectionId = location.hash.substring(1);
+      const element = document.getElementById(sectionId);
+      if (element) {
+        // Use requestAnimationFrame to ensure DOM is ready
+        requestAnimationFrame(() => {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      }
+    }
+  }, [location.hash]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-green-50 to-blue-50 dark:from-amber-900 dark:via-green-900 dark:to-blue-900">

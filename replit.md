@@ -49,10 +49,18 @@ The following environment variables are configured in `.env`:
 
 ## Development
 The application runs on port 5000 with Vite's dev server. The workflow is configured to:
-- Host: 0.0.0.0 (required for Replit)
+- Host: auto-detect (set to `true`)
 - Port: 5000 (required for Replit webview)
-- HMR client port: 443 (for proper hot reload)
+- HMR: Conditional configuration
+  - **Replit environment**: Uses WSS protocol on port 443 with REPLIT_DEV_DOMAIN
+  - **Local development**: Uses default WS protocol on server port
 - Cache directories are ignored to prevent file watch issues
+
+### Hash-Based Navigation
+The app uses hash-based routing for Dashboard sections (e.g., /#satellite, /#weather, /#alerts).
+- Navigation preserves hashes in the URL for deep-linking support
+- Dashboard component watches `location.hash` changes and scrolls to sections automatically
+- Works correctly when navigating from /historical back to Dashboard sections
 
 ## Supabase Backend
 The project includes Supabase Edge Functions in `supabase/functions/`:
@@ -74,7 +82,15 @@ The application is configured for Replit autoscale deployment:
 - Run command: `bun run preview`
 - Deployment target: Autoscale (stateless)
 
-## Recent Changes (November 24, 2025)
+## Recent Changes (November 25, 2025)
+- ✅ Added 5 real ML prediction models using OpenAI API (crop disease, yield, water stress, pest detection, nutrient deficiency)
+- ✅ Integrated OpenAI SDK with browser support for client-side ML predictions
+- ✅ Updated AI Recommendations to use real GPT-4o model with automatic fallback
+- ✅ Fixed Vite HMR WebSocket configuration for both Replit and local development
+- ✅ Fixed navigation bug: Can now navigate from Historical Data back to Dashboard sections
+- ✅ Implemented hash-based navigation with deterministic scrolling via useEffect
+
+## Previous Changes (November 24, 2025)
 - ✅ Configured Vite for Replit environment (port 5000, host 0.0.0.0)
 - ✅ Added HMR configuration for proper hot reload in iframe (clientPort 443)
 - ✅ Configured `allowedHosts` for Replit's dynamic preview URLs (.replit.dev, .pike.replit.dev)
