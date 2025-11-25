@@ -94,10 +94,20 @@ function NavItem({
   bgColor,
   active 
 }: NavItemConfig & { active: boolean }) {
+  const location = useLocation();
+  
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (to.startsWith('/#')) {
       e.preventDefault();
       const sectionId = to.substring(2);
+      
+      // If not on dashboard, navigate there first
+      if (location.pathname !== '/') {
+        window.location.href = `/#${sectionId}`;
+        return;
+      }
+      
+      // Scroll to section
       const element = document.getElementById(sectionId);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
